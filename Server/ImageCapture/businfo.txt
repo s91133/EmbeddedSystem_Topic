@@ -1,0 +1,31 @@
+  {
+    "PlateNumb": "FAB-776",
+    "OperatorID": "300",
+    "RouteUID": "TPE10334",
+    "RouteID": "10334",
+    "RouteName": {
+      "Zh_tw": "",
+      "En": "Keelung Rd. Metro Bus"
+    },
+    "SubRouteUID": "TPE10334",
+    "SubRouteID": "10334",
+    "SubRouteName": {
+      "Zh_tw": "",
+      "En": "Keelung Rd. Metro Bus"
+    },
+    "Direction": 0,
+    "StopUID": "TPE14696",
+    "StopID": "14696",
+    "StopName": {
+      "Zh_tw": "",
+      "En": "Qingtan Elementary School(1)"
+    },
+    "StopSequence": 5,
+    "MessageType": 0,
+    "DutyStatus": 1,
+    "BusStatus": 0,
+    "A2EventType": 1,
+    "GPSTime": "2018-12-17T15:25:36+08:00",
+    "SrcUpdateTime": "2018-12-17T15:26:20+08:00",
+    "UpdateTime": "2018-12-17T15:26:23+08:00"
+  }

@@ -39,7 +39,7 @@ int main(int argc , char *argv[])
 	long long file_size = ftell(fp);
 	fseek(fp, 0, SEEK_SET);
 
-	unsigned char message[1] = {0};
+	unsigned char message[1024] = {0};
 	char receiveMessage[100] = {};
 	unsigned char number[] = {0};
 	unsigned char sub_number[1]={1};
@@ -47,8 +47,8 @@ int main(int argc , char *argv[])
 	send(sockfd,sub_number,sizeof(sub_number),0);
 	while(!feof(fp)){
 		sub_number[0] = 1;
-		fread(message, 1, 1, fp);
-		printf("%c",message[0]);
+		fread(message, 1, 1000, fp);
+		//printf("%c",message[0]);
 		send(sockfd,sub_number,sizeof(sub_number),0);
 		recv(sockfd,receiveMessage,sizeof(receiveMessage),0);
 		send(sockfd,message,sizeof(message),0);
@@ -57,8 +57,8 @@ int main(int argc , char *argv[])
 	sub_number[0] = 0;
 	send(sockfd,sub_number,sizeof(sub_number),0);
 	recv(sockfd,receiveMessage,sizeof(receiveMessage),0);
-	 printf("close Socket\n");
-	 printf("%s",receiveMessage);
-	 close(sockfd);
-	 return 0;
+	//printf("close Socket\n");
+	printf("%s",receiveMessage);
+	close(sockfd);
+	return 0;
 }
