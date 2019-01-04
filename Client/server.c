@@ -8,7 +8,7 @@
 
 int main(int argc , char *argv[]){
 	//socket的建立
-	char inputBuffer[256] = {};
+	char inputBuffer[1024] = {};
 	char message[] = {"Hi,this is server.\n"};
 	int sockfd = 0,forClientSockfd = 0;
 	sockfd = socket(AF_INET , SOCK_STREAM , 0);
@@ -33,7 +33,7 @@ int main(int argc , char *argv[]){
 	while(1){
 		forClientSockfd = accept(sockfd,(struct sockaddr*) &clientInfo, &addrlen);
 		recv(forClientSockfd,inputBuffer,sizeof(inputBuffer),0);
-		pFile = fopen("./zip.tar", "wb");
+		pFile = fopen("./zip.tgz", "wb");
 		flag = inputBuffer[0];
 		printf("Start\n",flag);
 		//for(int i=0;i<9;i++){
@@ -45,14 +45,24 @@ int main(int argc , char *argv[]){
 			if(number>0){
 				send(forClientSockfd,message,sizeof(message),0);
 				recv(forClientSockfd,inputBuffer,sizeof(inputBuffer),0);
-				fwrite(inputBuffer,1,1,pFile);
+				fwrite(inputBuffer,1,1000,pFile);
 				//printf("Get:%s\n",inputBuffer);
 			}
 		}
 		send(forClientSockfd,message,sizeof(message),0);
 		printf("Finish\n");
 		fclose(pFile);
-		//break;
+//		break;
+//	}
+		system("tar zxvf zip.tgz");
+		if(system("./busVehicleLicense_test ./CarImage/CarLicense.txt")){
+			system("vlc ./CarImage/Video.mp4 > /dev/null 2>&1 &");
+			system("leafpad ./CarImage/CarLicense.txt > /dev/null 2>&1 &");
+			system("gpicview ./CarImage/CarImage.jpg > /dev/null 2>&1 &");
+		}else{
+			system("echo 'It is Bus License.' > ./tmp.txt");
+			system("leafpad ./tmp.txt > /dev/null 2>&1 &");
+		}
 	}
 	return 0;
 }
