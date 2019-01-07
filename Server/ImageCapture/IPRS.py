@@ -51,9 +51,10 @@ def button():
     window.mainloop()
 
 def camera():
-    var = 150
+    var = 15
     count = 0
     camchk = 0
+    loopchk = 0
     num = 1
     fp = open("./businfo.txt","r")
     decodejson = demjson.decode(fp.read())
@@ -66,9 +67,12 @@ def camera():
         if ret == True :
             cv2.imshow('frame', frame)
             if Stopsta == 1 and Doorsta == True :
+                if loopchk == 0 :
+                    print("Door Open!")
+                    loopchk = 1
                 camchk = 1
                 out.write(frame)  
-                if var == 150:
+                if var == 15:
                     cv2.imwrite( "./CarImage/CarImage.jpg", frame )
                     var = 0
                     count+=1
@@ -77,12 +81,22 @@ def camera():
                     djson = demjson.decode(fp1.read())
                     fp1.close()
                     Status = djson['isVehicle']
+                    if Status == False :
+                        print("No License!")
+                    else :
+                        print("Find License: " + djson['Vehicle'])
                 var+=1
             
             if camchk == 1 and Doorsta == False  :
                 camchk = 0
-                var = 150
+                var = 15
                 out.release()
+                if loopchk == 1 :
+                    print("Door Close!")
+                    print("Recording complete!")
+                    loopchk = 0
+                    if Status == False :
+                        print("No License!")
                 if Status == True  :
                     fp2 = open("./CarImage/CarLicense.txt","w")
                     fp2.write(str(djson['Vehicle']))
@@ -91,6 +105,7 @@ def camera():
                     subprocess.call(["./client","/home/pi/EmbeddedSystem_Topic/Server/ImageCapture/sendfile_" + str(num) + ".tgz"])   
                     num+=1
                 out = cv2.VideoWriter("./CarImage/Video.mp4", fourcc, 20.0, (640, 360))
+
         cv2.waitKey(1)
 
 _thread.start_new_thread( camera, ( ) )

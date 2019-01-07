@@ -45,6 +45,7 @@ int main(int argc , char *argv[])
 	unsigned char sub_number[1]={1};
 	long long count_number;
 	send(sockfd,sub_number,sizeof(sub_number),0);
+	printf("Send Start.\n");
 	while(!feof(fp)){
 		sub_number[0] = 1;
 		fread(message, 1, 1000, fp);
