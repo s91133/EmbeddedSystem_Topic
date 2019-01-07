@@ -10,7 +10,7 @@ int main(int argc,char* argv[])
 	file.open(argv[1], ios::in);
 	//while(1)
 	{
-		cout << "Please enter license plate Number:" << endl;
+		//cout << "Please enter license plate Number:" << endl;
 		//cin >> s;
 		getline(file,s);
 		cout << argv[1] << endl;
@@ -20,14 +20,17 @@ int main(int argc,char* argv[])
 					   "|FA[A-Z]-[0-9]{3}"
 					   "|KK[A-Z]-[0-9]{4}"
 					   "|EAL-[0-9]{4}");
+		cout << "Image recognization completed." << endl;
+		cout << s;
 		if (std::regex_match(s, reg))
 		{
-			cout << "is bus" << endl;
+			cout << " is bus" << endl;
 			return 0;
 		}
 		else
 		{
-			cout << "isn't bus" << endl;
+			cout << " isn't bus" << endl;
+			cout << "Reporting Complete." << endl;
 			return 1;
 		}
 	}
